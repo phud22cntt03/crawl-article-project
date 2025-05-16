@@ -1,0 +1,49 @@
+body.landing-bg {
+    background: url('/static/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    text-align: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    margin-top: 10%;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.team-box {
+    border: 2px solid white;
+    display: inline-block;
+    padding: 30px 40px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.btn-box a {
+    display: inline-block;
+    padding: 12px 30px;
+    margin: 15px;
+    border: 2px solid white;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s;
+    background-color: rgba(255,255,255,0.1);
+}
+
+.btn-box a:hover {
+    background-color: white;
+    color: black;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>VnExpress Crawler</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- HEADER -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-red-600">VNEXPRESS</h1>
+            <form method="GET" action="/" class="flex items-center space-x-2">
+                <input 
+                    type="text" 
+                    name="q" 
+                    placeholder="Tìm kiếm..." 
+                    value="{{ request.args.get('q', '') }}" 
+                    class="border border-gray-300 px-3 py-1 rounded focus:outline-none focus:ring focus:border-blue-300"
+                >
+                <button 
+                    type="submit" 
+                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                >Tìm</button>
+            </form>
+        </div>
+
+        <!-- MENU -->
+        <nav class="bg-white border-t border-b py-2 px-4 shadow-sm">
+            <div class="max-w-6xl mx-auto flex space-x-6 text-sm font-medium">
+                <a href="#" class="text-gray-700 hover:text-red-500">Thời sự</a>
+                <a href="#" class="text-gray-700 hover:text-red-500">Thế giới</a>
+                <a href="#" class="text-gray-700 hover:text-red-500">Kinh doanh</a>
+                <a href="#" class="text-gray-700 hover:text-red-500">Giải trí</a>
+                <a href="#" class="text-gray-700 hover:text-red-500">Thể thao</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-6xl mx-auto mt-6 px-4">
+        <!-- Search result info -->
+        {% if request.args.get('q') %}
+            <div class="mb-4 text-sm text-gray-600 italic">
+                Kết quả tìm kiếm cho: "<strong>{{ request.args.get('q') }}</strong>" – tìm thấy {{ articles|length }} bài viết.
+            </div>
+        {% endif %}
+
+        <!-- ARTICLES GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for article in articles %}
+            <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition duration-300">
+                <img src="{{ article.image }}" class="w-full h-48 object-cover" alt="Ảnh">
+                <div class="p-4">
+                    <h2 class="font-bold text-lg mb-2">{{ article.title }}</h2>
+                    {% if article.summary %}
+                        <p class="text-sm text-gray-600 line-clamp-3">{{ article.summary }}</p>
+                    {% endif %}
+                    <a href="/article/{{ article.id }}" class="text-blue-600 mt-3 inline-block">Đọc tiếp →</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if articles|length == 0 %}
+            <p class="text-center text-gray-500 mt-10">Không tìm thấy bài viết nào.</p>
+        {% endif %}
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-10 text-center text-sm text-gray-400 py-4">
+        Cập nhật ngày {{ current_time.strftime('%d/%m/%Y') }}
+    </footer>
+</body>
+</html>
