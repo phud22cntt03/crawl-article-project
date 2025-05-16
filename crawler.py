@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from app import db, Article  # 👈 cần import từ app
+from app import db, Article
 
 def crawl_vnexpress():
     url = 'https://vnexpress.net'
@@ -11,22 +11,29 @@ def crawl_vnexpress():
     for item in soup.select('.item-news'):
         title_tag = item.select_one('h3.title-news a')
         image_tag = item.select_one('img')
-        
+
         if title_tag and image_tag:
             link = title_tag['href']
             title = title_tag.get_text(strip=True)
             image = image_tag.get('data-src') or image_tag.get('src')
-
-            # Crawl nội dung bài viết
             content = crawl_article_content(link)
             summary = content[:150] + "..." if len(content) > 150 else content
 
-            # ✅ Thêm vào DB
-            article = Article(title=title, image=image, summary=summary, content=content)
+            # Lấy category từ URL
+            category = extract_category_from_url(link)
+
+            article = Article(
+                title=title,
+                link=link,
+                image=image,
+                summary=summary,
+                content=content,
+                category=category
+            )
             db.session.add(article)
             articles.append(article)
 
-    db.session.commit()  # ✅ Ghi dữ liệu vào DB
+    db.session.commit()
     return articles
 
 def crawl_article_content(url):
@@ -38,3 +45,18 @@ def crawl_article_content(url):
         return content
     except:
         return ""
+
+def extract_category_from_url(url):
+    try:
+        parts = url.split('/')
+        category_slug = parts[3] if len(parts) > 3 else "khac"
+        category_map = {
+            'thoi-su': 'Thời sự',
+            'the-gioi': 'Thế giới',
+            'kinh-doanh': 'Kinh doanh',
+            'giai-tri': 'Giải trí',
+            'the-thao': 'Thể thao'
+        }
+        return category_map.get(category_slug, 'Khác')
+    except:
+        return "Khác"

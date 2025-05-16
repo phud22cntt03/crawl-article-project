@@ -7,5 +7,6 @@ class Article(db.Model):
     title = db.Column(db.String(255))
     link = db.Column(db.String(500))
     image = db.Column(db.String(500))
-    summary = db.Column(db.Text)  # ➕ Thêm dòng này
+    summary = db.Column(db.Text)
     content = db.Column(db.Text)
+    category = db.Column(db.String(100))  # ➕ Thêm category

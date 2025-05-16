@@ -29,33 +29,40 @@
         <!-- MENU -->
         <nav class="bg-white border-t border-b py-2 px-4 shadow-sm">
             <div class="max-w-6xl mx-auto flex space-x-6 text-sm font-medium">
-                <a href="#" class="text-gray-700 hover:text-red-500">Thời sự</a>
-                <a href="#" class="text-gray-700 hover:text-red-500">Thế giới</a>
-                <a href="#" class="text-gray-700 hover:text-red-500">Kinh doanh</a>
-                <a href="#" class="text-gray-700 hover:text-red-500">Giải trí</a>
-                <a href="#" class="text-gray-700 hover:text-red-500">Thể thao</a>
+                {% for slug, name in categories.items() %}
+                    <a href="/category/{{ slug }}"
+                       class="hover:text-red-600 {% if slug == current_category %}text-red-600 font-semibold{% else %}text-gray-700{% endif %}">
+                        {{ name }}
+                    </a>
+                {% endfor %}
             </div>
         </nav>
     </header>
 
     <!-- MAIN CONTENT -->
     <main class="max-w-6xl mx-auto mt-6 px-4">
-        <!-- Search result info -->
-        {% if request.args.get('q') %}
+
+        {% if current_category %}
+            <div class="mb-4 text-xl font-bold text-gray-800">
+                Chuyên mục: {{ categories[current_category] }}
+            </div>
+        {% elif request.args.get('q') %}
             <div class="mb-4 text-sm text-gray-600 italic">
                 Kết quả tìm kiếm cho: "<strong>{{ request.args.get('q') }}</strong>" – tìm thấy {{ articles|length }} bài viết.
             </div>
         {% endif %}
 
-        <!-- ARTICLES GRID -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for article in articles %}
             <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition duration-300">
                 <img src="{{ article.image }}" class="w-full h-48 object-cover" alt="Ảnh">
                 <div class="p-4">
-                    <h2 class="font-bold text-lg mb-2">{{ article.title }}</h2>
+                    <h2 class="font-bold text-lg mb-1">{{ article.title }}</h2>
+                    {% if article.category %}
+                        <span class="text-xs text-white bg-gray-700 px-2 py-1 rounded-full">{{ article.category }}</span>
+                    {% endif %}
                     {% if article.summary %}
-                        <p class="text-sm text-gray-600 line-clamp-3">{{ article.summary }}</p>
+                        <p class="text-sm text-gray-600 mt-2 line-clamp-3">{{ article.summary }}</p>
                     {% endif %}
                     <a href="/article/{{ article.id }}" class="text-blue-600 mt-3 inline-block">Đọc tiếp →</a>
                 </div>
@@ -66,6 +73,20 @@
         {% if articles|length == 0 %}
             <p class="text-center text-gray-500 mt-10">Không tìm thấy bài viết nào.</p>
         {% endif %}
+
+        <!-- Pagination -->
+        <div class="mt-10 flex justify-center space-x-2 text-sm">
+            {% for page_num in range(1, total_pages + 1) %}
+                {% if page_num == current_page %}
+                    <span class="px-3 py-1 bg-blue-600 text-white rounded">{{ page_num }}</span>
+                {% else %}
+                    <a href="{% if current_category %}/category/{{ current_category }}{% else %}/{% endif %}?page={{ page_num }}{% if keyword %}&q={{ keyword }}{% endif %}"
+                       class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-gray-100">
+                       {{ page_num }}
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
     </main>
 
     <!-- FOOTER -->
