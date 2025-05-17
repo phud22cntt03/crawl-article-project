@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="homepage">
+    <div class="overlay">
+        <h1>Data collection and Pre-processing</h1>
+        <div class="carousel-box">
+            <div class="carousel-slide active" id="slide-1">
+                <h2>Thông tin đề tài</h2>
+                <p><strong>Môn học:</strong> Kỹ thuật lập trình trong phân tích dữ liệu</p>
+                <p><strong>GV hướng dẫn:</strong> Nguyễn Thế Bảo</p>
+            </div>
+
+            <div class="carousel-slide" id="slide-2">
+                <h2>Thành viên nhóm</h2>
+                <ul>
+                    <li>Lê Trương Trường Huy</li>
+                    <li>Diệp Đại Lê Hoài</li>
+                    <li>Trần Gia Phú</li>
+                </ul>
+            </div>
+
+            <div class="carousel-controls">
+                <button onclick="showSlide(1)">Thông tin đề tài</button>
+                <button onclick="showSlide(2)">Thành viên</button>
+            </div>
+        </div>
+        <div class="option-box">
+            <h2>Option</h2>
+            <div class="buttons">
+                <a href="/data" class="btn">Data</a>
+                <a href="/data#search" class="btn">Search</a>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function showSlide(slideNumber) {
+        const slides = document.querySelectorAll('.carousel-slide');
+        slides.forEach(slide => slide.classList.remove('active'));
+        document.getElementById(`slide-${slideNumber}`).classList.add('active');
+    }
+</script>
+
+</html>

@@ -14,9 +14,20 @@ CATEGORIES = {
     'giai-tri': 'Giải trí',
     'the-thao': 'Thể thao'
 }
+from flask import redirect, url_for
 
 @app.route('/')
-def index():
+def home():
+    # Chuyển hướng sang /data, giữ nguyên query string nếu có
+    query = request.args.get('q')
+    if query:
+        return redirect(url_for('data', q=query))
+    else:
+        return render_template('home.html')
+
+
+@app.route('/data')
+def data():
     keyword = request.args.get('q', '').lower()
     page = request.args.get('page', 1, type=int)
     per_page = 12
@@ -40,6 +51,7 @@ def index():
                            keyword=keyword,
                            categories=CATEGORIES,
                            current_category=None)
+
 
 @app.route('/category/<slug>')
 def category_view(slug):
