@@ -1,4 +1,3 @@
-<!-- templates/article_detail.html -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -6,12 +5,33 @@
     <title>{{ article.title }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-white text-gray-900 max-w-4xl mx-auto py-10 px-6">
-    <h1 class="text-3xl font-bold mb-4">{{ article.title }}</h1>
-    <img src="{{ article.image }}" class="w-full h-96 object-cover mb-6">
-    <div class="prose max-w-none">
+<body class="bg-white text-gray-900 flex flex-col items-center py-12 px-4">
+
+    <!-- Tiêu đề trang -->
+    <h1 class="text-xl text-gray-700 font-medium mb-6">Chi tiết báo</h1>
+
+    <!-- Tiêu đề bài viết -->
+    <h2 class="text-3xl font-bold text-red-600 text-center mb-3">{{ article.title }}</h2>
+
+    <!-- Danh mục -->
+    <div class="text-lg text-gray-500 italic mb-6">{{ article.category }}</div>
+
+    <!-- Tóm tắt -->
+    <p class="text-base text-gray-800 text-justify mb-6 leading-relaxed max-w-5xl">
+        {{ article.summary }}
+    </p>
+
+    <!-- Nội dung bài viết -->
+    <div class="text-base text-gray-800 text-justify leading-loose max-w-5xl mb-10">
         {{ article.content | safe }}
     </div>
-    <a href="/" class="text-blue-600 mt-6 inline-block">← Quay lại</a>
+
+    <!-- Nút quay lại -->
+    <div class="w-full max-w-5xl text-left">
+        <a href="/" class="px-5 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition">
+            HomePage
+        </a>
+    </div>
+
 </body>
 </html>

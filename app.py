@@ -71,6 +71,10 @@ def category_view(slug):
 def view_article(article_id):
     article = Article.query.get_or_404(article_id)
     return render_template('article_detail.html', article=article)
+@app.route('/data')
+def view_data():
+    articles = Article.query.order_by(Article.id.desc()).all()
+    return render_template('data.html', articles=articles)
 
 if __name__ == '__main__':
     with app.app_context():

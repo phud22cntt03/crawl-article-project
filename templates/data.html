@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách bài viết</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="max-w-7xl mx-auto py-10 px-4">
+        <h1 class="text-3xl font-bold text-center mb-8 text-red-600">📊 Dữ liệu bài viết</h1>
+
+        <div class="overflow-auto rounded-lg shadow-md">
+            <table class="w-full table-auto bg-white">
+                <thead class="bg-red-600 text-white">
+                    <tr class="text-left text-sm uppercase">
+                        <th class="px-4 py-3">#</th>
+                        <th class="px-4 py-3">Chuyên mục</th>
+                        <th class="px-4 py-3">Tiêu đề</th>
+                        <th class="px-4 py-3">Mô tả</th>
+                        <th class="px-4 py-3">Chi tiết</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 text-sm">
+                    {% for article in articles %}
+                    <tr class="hover:bg-gray-100 transition">
+                        <td class="px-4 py-2 font-medium text-gray-700">{{ article.id }}</td>
+                        <td class="px-4 py-2 text-blue-600 font-semibold">{{ article.category }}</td>
+                        <td class="px-4 py-2">{{ article.title }}</td>
+                        <td class="px-4 py-2 text-gray-600">{{ article.summary[:80] }}...</td>
+                        <td class="px-4 py-2">
+                            <a href="/article/{{ article.id }}" class="text-blue-600 hover:underline">Đọc thêm</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if articles|length == 0 %}
+            <p class="mt-6 text-center text-gray-500">Không có bài viết nào.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
