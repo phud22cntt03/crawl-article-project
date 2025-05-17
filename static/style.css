@@ -47,3 +47,185 @@ h1 {
     background-color: white;
     color: black;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body.homepage {
+    background-image: url('../static/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* .team-box, .option-box {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 25px;
+    margin: 15px;
+    width: 350px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.team-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.team-box li {
+    margin: 8px 0;
+    font-size: 18px;
+} */
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: white;
+    color: black;
+    transform: scale(1.05);
+}
+
+/* Form tìm kiếm */
+form {
+    margin-top: 15px;
+}
+
+input[type="text"] {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    width: 220px;
+    outline: none;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: #ffd700;
+    color: black;
+    transform: scale(1.05);
+}
+
+/* Slide chung */
+.carousel-box {
+    width: 360px;
+    padding: 24px;
+    margin: 20px auto;
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    color: #f0f0f0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.carousel-slide {
+    display: none;
+    animation: fade 0.4s ease-in-out;
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+/* Tên môn học nổi bật */
+.carousel-slide h2 {
+    font-size: 24px;
+    color: #00d9ff;
+    margin-bottom: 10px;
+}
+
+/* Dòng môn học */
+.carousel-slide p strong {
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.carousel-slide ul {
+    padding-left: 20px;
+}
+
+.carousel-slide li {
+    font-size: 17px;
+    margin-bottom: 6px;
+    color: #e0f7fa;
+}
+
+.carousel-controls {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.carousel-controls button {
+    padding: 8px 14px;
+    margin: 6px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(0, 217, 255, 0.2);
+    color: #00d9ff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-controls button:hover {
+    background-color: #00d9ff;
+    color: black;
+}
+
+@keyframes fade {
+    from { opacity: 0.2; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
