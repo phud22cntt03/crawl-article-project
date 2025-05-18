@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from models import db, Article
 from datetime import datetime
 
@@ -14,17 +14,14 @@ CATEGORIES = {
     'giai-tri': 'Giải trí',
     'the-thao': 'Thể thao'
 }
-from flask import redirect, url_for
 
 @app.route('/')
 def home():
-    # Chuyển hướng sang /data, giữ nguyên query string nếu có
     query = request.args.get('q')
     if query:
         return redirect(url_for('data', q=query))
     else:
         return render_template('home.html')
-
 
 @app.route('/data')
 def data():
@@ -33,8 +30,9 @@ def data():
     per_page = 12
 
     if keyword:
-        articles = Article.query.all()
-        articles = [a for a in articles if keyword in a.title.lower()]
+        # Tìm kiếm theo từ khóa trong title, sau đó sắp xếp theo id giảm dần (mới nhất trước)
+        filtered_articles = [a for a in Article.query.all() if keyword in a.title.lower()]
+        articles = sorted(filtered_articles, key=lambda x: x.id, reverse=True)
     else:
         articles = Article.query.order_by(Article.id.desc()).all()
 
@@ -51,7 +49,6 @@ def data():
                            keyword=keyword,
                            categories=CATEGORIES,
                            current_category=None)
-
 
 @app.route('/category/<slug>')
 def category_view(slug):
@@ -85,7 +82,7 @@ def view_article(article_id):
     return render_template('article_detail.html', article=article)
 
 @app.route('/data-page')
-def data_page():
+def view_data():
     articles = Article.query.order_by(Article.id.desc()).all()
     return render_template('data.html', articles=articles)
 
