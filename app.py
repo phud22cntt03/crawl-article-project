@@ -88,6 +88,11 @@ def view_data():
     articles = Article.query.order_by(Article.id.desc()).all()
     return render_template('data.html', articles=articles)
 
+@app.route('/data-page')
+def data_page():
+    articles = Article.query.order_by(Article.id.desc()).all()
+    return render_template('data.html', articles=articles)
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
